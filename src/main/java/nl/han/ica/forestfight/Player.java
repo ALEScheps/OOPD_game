@@ -7,7 +7,7 @@ import nl.han.ica.OOPDProcessingEngineHAN.Collision.ICollidableWithTiles;
 import nl.han.ica.OOPDProcessingEngineHAN.Exceptions.TileNotFoundException;
 import nl.han.ica.OOPDProcessingEngineHAN.Objects.AnimatedSpriteObject;
 import nl.han.ica.OOPDProcessingEngineHAN.Objects.Sprite;
-import nl.han.ica.waterworld.tiles.BoardsTile;
+import nl.han.ica.forestfight.tiles.BoardsTile;
 import processing.core.PVector;
 
 public class Player extends AnimatedSpriteObject implements ICollidableWithTiles {
@@ -61,11 +61,8 @@ public class Player extends AnimatedSpriteObject implements ICollidableWithTiles
         if (keyCode == 'S') {
             setDirectionSpeed(180, speed);
         }
-        if (key == ' ') {
-            System.out.println("Spatie!");
-        }
     }
-	
+
 	@SuppressWarnings("static-access")
 	public void tileCollisionOccurred(List<CollidedTile> collidedTiles)  {
         PVector vector;
@@ -80,11 +77,26 @@ public class Player extends AnimatedSpriteObject implements ICollidableWithTiles
                         e.printStackTrace();
                     }
                 }
+                if (ct.collisionSide == ct.BOTTOM) {
+                    try {
+                        vector = world.getTileMap().getTilePixelLocation(ct.theTile);
+                        setX(vector.y);
+                    } catch (TileNotFoundException e) {
+                        e.printStackTrace();
+                    }
+                }
                 if (ct.collisionSide == ct.RIGHT) {
                     try {
                         vector = world.getTileMap().getTilePixelLocation(ct.theTile);
-//                        world.getTileMap().setTile((int) vector.x / 50, (int) vector.y / 50, -1);
                         setX(vector.x + getWidth());
+                    } catch (TileNotFoundException e) {
+                        e.printStackTrace();
+                    }
+                }
+                if (ct.collisionSide == ct.LEFT) {
+                    try {
+                        vector = world.getTileMap().getTilePixelLocation(ct.theTile);
+                        setX(vector.x);
                     } catch (TileNotFoundException e) {
                         e.printStackTrace();
                     }

@@ -5,7 +5,7 @@ import nl.han.ica.OOPDProcessingEngineHAN.Objects.Sprite;
 import nl.han.ica.OOPDProcessingEngineHAN.Tile.TileMap;
 import nl.han.ica.OOPDProcessingEngineHAN.Tile.TileType;
 import nl.han.ica.OOPDProcessingEngineHAN.View.View;
-import nl.han.ica.waterworld.tiles.BoardsTile;
+import nl.han.ica.forestfight.tiles.BoardsTile;
 import processing.core.PApplet;
 
 public class Forest extends GameEngine {
@@ -45,7 +45,7 @@ public class Forest extends GameEngine {
 	}
 	
 	private void initializeTileMap() {
-		Sprite houseSprite = new Sprite("src/main/java/nl/han/ica/forestfight/media/house.jpg");
+		Sprite houseSprite = new Sprite("src/main/java/nl/han/ica/forestfight/media/house.png");
 		TileType<BoardsTile> boardTileType = new TileType<>(BoardsTile.class, houseSprite);
 
         TileType[] tileTypes = { boardTileType };
