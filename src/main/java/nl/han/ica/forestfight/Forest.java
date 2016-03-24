@@ -45,14 +45,15 @@ public class Forest extends GameEngine {
 	}
 	
 	private void initializeTileMap() {
-		Sprite boardsSprite = new Sprite("src/main/java/nl/han/ica/waterworld/media/boards.jpg");
-		TileType<BoardsTile> boardTileType = new TileType<>(BoardsTile.class, boardsSprite);
+		Sprite houseSprite = new Sprite("src/main/java/nl/han/ica/forestfight/media/house.jpg");
+		TileType<BoardsTile> boardTileType = new TileType<>(BoardsTile.class, houseSprite);
 
         TileType[] tileTypes = { boardTileType };
         int tileSize=50;
         int tilesMap[][]={
                 {-1,-1,-1,-1,-1,-1,-1,-1,-1,-1},
                 {-1,-1,-1,-1,-1,-1,-1,-1,-1,-1},
+                {-1,-1,-1,-1,-1,-1,-1,-1, 0,-1},
                 {-1,-1,-1,-1,-1,-1,-1,-1,-1,-1},
                 {-1,-1,-1,-1,-1,-1,-1,-1,-1,-1},
                 {-1,-1,-1,-1,-1,-1,-1,-1,-1,-1},
@@ -60,11 +61,9 @@ public class Forest extends GameEngine {
                 {-1,-1,-1,-1,-1,-1,-1,-1,-1,-1},
                 {-1,-1,-1,-1,-1,-1,-1,-1,-1,-1},
                 {-1,-1,-1,-1,-1,-1,-1,-1,-1,-1},
-                {-1,-1,-1, 0, 0, 0, 0,-1,0 , 0},
                 {-1,-1,-1,-1,-1,-1,-1,-1,-1,-1},
                 {-1,-1,-1,-1,-1,-1,-1,-1,-1,-1},
-                {-1,-1,-1,-1,-1,-1,-1,-1,-1,-1},
-                {-1,-1,-1,-1,-1,-1,-1,-1,-1,-1}
+
         };
         tileMap = new TileMap(tileSize, tileTypes, tilesMap);
 	}

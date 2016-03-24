@@ -21,7 +21,14 @@ public class Enemy extends SpriteObject {
 //		if (getX()+getWidth()<=0) {
 //            setX(world.getWidth());
 //        }
-		this.setDirectionSpeed(world.player.getCenterX(), 1);
+
+		if(this.getDistanceFrom(world.player) > 1){
+			this.setDirectionSpeed(this.getAngleFrom(world.player), 2);
+		}
+		else{
+			this.setDirectionSpeed(this.getAngleFrom(world.player), 0);
+		}
+
 	}
 
 }

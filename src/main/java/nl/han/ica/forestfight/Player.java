@@ -12,7 +12,7 @@ import processing.core.PVector;
 
 public class Player extends AnimatedSpriteObject implements ICollidableWithTiles {
 
-	final int size = 32;
+	final int size = 50;
 	private final Forest world;
 	Sprite playerSprite = new Sprite("src/main/java/nl/han/ica/forestfight/media/player.png");
 
@@ -22,7 +22,7 @@ public class Player extends AnimatedSpriteObject implements ICollidableWithTiles
         setCurrentFrameIndex(0);
         setFriction(0.05f);
     }
-
+	
 	public void update() {
 		if (getX()<=0) {
             setxSpeed(0);
@@ -42,19 +42,23 @@ public class Player extends AnimatedSpriteObject implements ICollidableWithTiles
         }
 	}
 	
+	/* (non-Javadoc)
+	 * @see nl.han.ica.OOPDProcessingEngineHAN.Objects.GameObject#keyPressed(int, char)
+	 */
 	@SuppressWarnings("static-access")
 	public void keyPressed(int keyCode, char key) {
         final int speed = 5;
-        if (keyCode == world.LEFT || keyCode == 'A') {
+        
+        if (keyCode == 'A') {
             setDirectionSpeed(270, speed);
         }
-        if (keyCode == world.UP || keyCode == 'W') {
+        if (keyCode == 'W') {
             setDirectionSpeed(0, speed);
         }
-        if (keyCode == world.RIGHT || keyCode == 'D') {
+        if (keyCode == 'D') {
             setDirectionSpeed(90, speed);
         }
-        if (keyCode == world.DOWN || keyCode == 'S') {
+        if (keyCode == 'S') {
             setDirectionSpeed(180, speed);
         }
         if (key == ' ') {
