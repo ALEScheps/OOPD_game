@@ -12,8 +12,15 @@ import processing.core.PVector;
 
 public class Player extends AnimatedSpriteObject implements ICollidableWithTiles {
 
-	final int size = 50;
-	private final Forest world;
+	private final int size = 50;
+	private Forest world;
+	
+	private int level = 1;
+	private int exp = 0;
+	private int hp = 200;
+	private int att = 50;
+	private int def = 0;
+	
 	Sprite playerSprite = new Sprite("src/main/java/nl/han/ica/forestfight/media/player.png");
 
 	public Player(Forest world) {
@@ -104,5 +111,55 @@ public class Player extends AnimatedSpriteObject implements ICollidableWithTiles
             }
         }
     }
+	
+	/**
+	 * @return the level
+	 */
+	public int getLevel(){
+		return level;
+	}
+
+	/**
+	 * @return the hp
+	 */
+	public int getHp() {
+		return hp;
+	}
+
+	/**
+	 * @param hp the hp to set
+	 */
+	public void setHp(int hp) {
+		this.hp = hp;
+	}
+
+	/**
+	 * @return the att
+	 */
+	public int getAtt() {
+		return att;
+	}
+
+	/**
+	 * @param att the att to set
+	 */
+	public void setAtt(int att) {
+		this.att = att;
+	}
+
+	/**
+	 * @return the def
+	 */
+	public int getDef() {
+		return def;
+	}
+
+	/**
+	 * @param def the def to set
+	 */
+	public void setDef(int def) {
+		this.def = def;
+	}
+	
 
 }

@@ -12,11 +12,18 @@ import processing.core.PVector;
 
 public class Enemy extends SpriteObject implements ICollidableWithTiles {
 
-	private Forest world;
+	protected Forest world;
+	protected int enemyCount;
+	protected int hp;
+	protected int att;
+	protected int def;
 	
-	public Enemy(Forest forest) {
+	public Enemy(Forest forest, int hp, int att, int def) {
 		this(new Sprite("src/main/java/nl/han/ica/forestfight/media/player.png"));
 		this.world = forest;
+		this.hp = hp;
+		this.att = att;
+		this.def = def;
 	}
 	
 	private Enemy(Sprite sprite) {
