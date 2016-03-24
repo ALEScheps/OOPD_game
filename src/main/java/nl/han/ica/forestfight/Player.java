@@ -80,7 +80,7 @@ public class Player extends AnimatedSpriteObject implements ICollidableWithTiles
                 if (ct.collisionSide == ct.BOTTOM) {
                     try {
                         vector = world.getTileMap().getTilePixelLocation(ct.theTile);
-                        setX(vector.y);
+                        setY(vector.y + getHeight());
                     } catch (TileNotFoundException e) {
                         e.printStackTrace();
                     }
@@ -96,7 +96,7 @@ public class Player extends AnimatedSpriteObject implements ICollidableWithTiles
                 if (ct.collisionSide == ct.LEFT) {
                     try {
                         vector = world.getTileMap().getTilePixelLocation(ct.theTile);
-                        setX(vector.x);
+                        setX(vector.x - getWidth());
                     } catch (TileNotFoundException e) {
                         e.printStackTrace();
                     }
