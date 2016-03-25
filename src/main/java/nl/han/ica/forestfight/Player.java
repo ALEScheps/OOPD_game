@@ -22,6 +22,8 @@ public class Player extends AnimatedSpriteObject implements ICollidableWithTiles
 	private int def = 0;
 	
 	Sprite playerSprite = new Sprite("src/main/java/nl/han/ica/forestfight/media/player.png");
+	private int level = 1, attack = 1 , defence = 1, cash = 0, experiencePoints = 0, instanceLevel = 1;
+	protected static Backpack playerBackpack;
 
 	public Player(Forest world) {
         super(new Sprite("src/main/java/nl/han/ica/forestfight/media/player.png"), 1);
