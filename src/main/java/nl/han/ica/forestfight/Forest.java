@@ -12,7 +12,8 @@ public class Forest extends GameEngine {
 	
 	private static final long serialVersionUID = 302452811424115223L;
 	public Player player;
-	private Enemy enemy;
+	private Dragon dragon;
+	private Skeleton skeleton;
 	
     public static void main(String[] args) {
         PApplet.main(new String[]{"nl.han.ica.forestfight.Forest"});
@@ -40,8 +41,10 @@ public class Forest extends GameEngine {
 	public void createObjects() {
 		player = new Player(this);
 		addGameObject(player, 100, 100);
-		enemy = new Enemy(this);
-		addGameObject(enemy, 250, 250);
+		dragon = new Dragon(this, 20, 50, 10, "dragon.png");
+		addGameObject(dragon, 250, 400);
+		skeleton = new Skeleton(this, 20, 50, 10, "skeleton.png");
+		addGameObject(skeleton, 400, 250);
 	}
 	
 	private void initializeTileMap() {
@@ -51,18 +54,18 @@ public class Forest extends GameEngine {
         TileType[] tileTypes = { boardTileType };
         int tileSize=50;
         int tilesMap[][]={
-                {-1,-1,-1,-1,-1,-1,-1,-1,-1,-1},
-                {-1,-1,-1,-1,-1,-1,-1,-1,-1,-1},
-                {-1,-1,-1,-1,-1,-1,-1,-1, 0,-1},
-                {-1,-1,-1,-1,-1,-1,-1,-1,-1,-1},
-                {-1,-1,-1,-1,-1,-1,-1,-1,-1,-1},
-                {-1,-1,-1,-1,-1,-1,-1,-1,-1,-1},
-                {-1,-1,-1,-1,-1,-1,-1,-1,-1,-1},
-                {-1,-1,-1,-1,-1,-1,-1,-1,-1,-1},
-                {-1,-1,-1,-1,-1,-1,-1,-1,-1,-1},
-                {-1,-1,-1,-1,-1,-1,-1,-1,-1,-1},
-                {-1,-1,-1,-1,-1,-1,-1,-1,-1,-1},
-                {-1,-1,-1,-1,-1,-1,-1,-1,-1,-1},
+                {-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1},
+                {-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1},
+                {-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1, 0,-1,-1,-1},
+                {-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1},
+                {-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1},
+                {-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1},
+                {-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1},
+                {-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1},
+                {-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1},
+                {-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1},
+                {-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1},
+                {-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1}
 
         };
         tileMap = new TileMap(tileSize, tileTypes, tilesMap);

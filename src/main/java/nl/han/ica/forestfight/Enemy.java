@@ -17,9 +17,11 @@ public class Enemy extends SpriteObject implements ICollidableWithTiles {
 	protected int hp;
 	protected int att;
 	protected int def;
+	protected int toAddExp;
+	protected String fileName;
 	
-	public Enemy(Forest forest, int hp, int att, int def) {
-		this(new Sprite("src/main/java/nl/han/ica/forestfight/media/player.png"));
+	public Enemy(Forest forest, int hp, int att, int def, String fileName) {
+		this(new Sprite("src/main/java/nl/han/ica/forestfight/media/" + fileName));
 		this.world = forest;
 		this.hp = hp;
 		this.att = att;
@@ -32,17 +34,12 @@ public class Enemy extends SpriteObject implements ICollidableWithTiles {
     }
 	
 	public void update() {
-//		if (getX()+getWidth()<=0) {
-//            setX(world.getWidth());
-//        }
-
 		if(this.getDistanceFrom(world.player) > 1){
 			this.setDirectionSpeed(this.getAngleFrom(world.player), 2);
 		}
 		else{
 			this.setDirectionSpeed(this.getAngleFrom(world.player), 0);
 		}
-
 	}
 	
 	@SuppressWarnings("static-access")
@@ -85,6 +82,5 @@ public class Enemy extends SpriteObject implements ICollidableWithTiles {
                 }
             }
         }
-    }
-
+	}
 }

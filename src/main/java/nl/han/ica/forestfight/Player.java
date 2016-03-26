@@ -161,5 +161,10 @@ public class Player extends AnimatedSpriteObject implements ICollidableWithTiles
 		this.def = def;
 	}
 	
-
+	/**
+	 * @param toAddExp the exp to set
+	 */
+	public void addExp(int toAddExp){
+		exp = exp + toAddExp;
+	}
 }
