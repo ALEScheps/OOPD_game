@@ -3,21 +3,24 @@ package nl.han.ica.forestfight;
 import java.util.List;
 
 import nl.han.ica.OOPDProcessingEngineHAN.Collision.CollidedTile;
+import nl.han.ica.OOPDProcessingEngineHAN.Collision.ICollidableWithGameObjects;
 import nl.han.ica.OOPDProcessingEngineHAN.Collision.ICollidableWithTiles;
 import nl.han.ica.OOPDProcessingEngineHAN.Exceptions.TileNotFoundException;
 import nl.han.ica.OOPDProcessingEngineHAN.Objects.AnimatedSpriteObject;
+import nl.han.ica.OOPDProcessingEngineHAN.Objects.GameObject;
 import nl.han.ica.OOPDProcessingEngineHAN.Objects.Sprite;
 import nl.han.ica.forestfight.tiles.BoardsTile;
 import processing.core.PVector;
 
-public class Player extends AnimatedSpriteObject implements ICollidableWithTiles {
+public class Player extends AnimatedSpriteObject implements ICollidableWithTiles, ICollidableWithGameObjects {
 
 	private final int size = 50;
 	private Forest world;
 	
 	private int level = 1;
 	private int exp = 0;
-	private int hp = 200;
+	private int mhp = 200;	//maximum hp entity can have
+	private int chp;		//current hp entity has
 	private int att = 50;
 	private int def = 0;
 	private int cash = 0;
@@ -51,6 +54,9 @@ public class Player extends AnimatedSpriteObject implements ICollidableWithTiles
             setySpeed(0);
             setY(world.getHeight() - size);
         }
+        if(this.chp < 1){
+			this.die();
+		}
 	}
 	
 	/* (non-Javadoc)
@@ -116,6 +122,24 @@ public class Player extends AnimatedSpriteObject implements ICollidableWithTiles
         }
     }
 	
+	@Override
+	public void gameObjectCollisionOccurred(List<GameObject> collidedGameObjects) {
+		
+		for (GameObject go : collidedGameObjects){
+			
+			for (GameObject cgo : collidedGameObjects) {
+				if(go != cgo){
+					if(go.getDistanceFrom(cgo) < go.getWidth()){
+						cgo.setSpeed(0);
+					}
+				}
+				
+//				ik weet nog niet hoe ik de collision hiermee goed krijg, maar enemies gaan na een tijdje
+//				rond te lopen onder elkaar lopen en player kan onder enemies door lopen
+			}
+		}
+	}
+	
 	/**
 	 * @return the level
 	 */
@@ -127,14 +151,14 @@ public class Player extends AnimatedSpriteObject implements ICollidableWithTiles
 	 * @return the hp
 	 */
 	public int getHp() {
-		return hp;
+		return mhp;
 	}
 
 	/**
 	 * @param hp the hp to set
 	 */
 	public void setHp(int hp) {
-		this.hp = hp;
+		this.mhp = hp;
 	}
 
 	/**
@@ -165,10 +189,21 @@ public class Player extends AnimatedSpriteObject implements ICollidableWithTiles
 		this.def = def;
 	}
 	
+	public void setCurrentHp(int hp){
+		this.chp = hp;
+	}
+	
+	public int getCurrentHp(){
+		return this.chp;
+	}
 	/**
 	 * @param toAddExp the exp to set
 	 */
 	public void addExp(int toAddExp){
 		exp = exp + toAddExp;
+	}
+	
+	public void die(){
+		//game-over
 	}
 }

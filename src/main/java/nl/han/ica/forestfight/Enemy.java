@@ -16,7 +16,8 @@ public class Enemy extends SpriteObject implements ICollidableWithTiles, ICollid
 
 	protected Forest world;
 	protected int enemyCount;
-	protected int hp;
+	protected int mhp;	//maximum hp
+	protected int chp;	//hp the entity currently has
 	protected int att;
 	protected int def;
 	protected int toAddExp;
@@ -25,14 +26,14 @@ public class Enemy extends SpriteObject implements ICollidableWithTiles, ICollid
 	public Enemy(Forest forest, int hp, int att, int def, String fileName) {
 		this(new Sprite("src/main/java/nl/han/ica/forestfight/media/" + fileName));
 		this.world = forest;
-		this.hp = hp;
+		this.mhp = hp;
 		this.att = att;
 		this.def = def;
 	}
 
 	private Enemy(Sprite sprite) {
 		super(sprite);
-		setxSpeed(-1);
+		setxSpeed(0);
 	}
 
 	public void update() {
@@ -40,6 +41,9 @@ public class Enemy extends SpriteObject implements ICollidableWithTiles, ICollid
 			this.setDirectionSpeed(this.getAngleFrom(world.player), 2);
 		} else {
 			this.setDirectionSpeed(this.getAngleFrom(world.player), 0);
+		}
+		if(this.chp < 1){
+			this.die();
 		}
 	}
 
@@ -102,5 +106,48 @@ public class Enemy extends SpriteObject implements ICollidableWithTiles, ICollid
 			}
 		}
 	}
-
+	
+	public void setMaxHp(int hp){
+		this.mhp = hp;
+	}
+	
+	public int getMaxHp(){
+		return this.mhp;
+	}
+	
+	public void setCurrentHp(int hp){
+		this.chp = hp;
+	}
+	
+	public int getCurrentHp(){
+		return this.chp;
+	}
+	
+	public void setAtt(int att){
+		this.att = att;
+	}
+	
+	public int getAtt(){
+		return this.att;
+	}
+	
+	public void setDef(int def){
+		this.def = def;
+	}
+	
+	public int getDef(){
+		return this.def;
+	}
+	
+	public void setExp(int exp){
+		this.toAddExp = exp;
+	}
+	
+	public int getExp(){
+		return this.toAddExp;
+	}
+	
+	public void die(){
+		//remove the enemy from the game
+	}
 }
