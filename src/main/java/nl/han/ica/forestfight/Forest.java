@@ -1,9 +1,5 @@
 package nl.han.ica.forestfight;
 
-import java.util.Timer;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-
 import nl.han.ica.OOPDProcessingEngineHAN.Engine.GameEngine;
 import nl.han.ica.OOPDProcessingEngineHAN.Objects.Sprite;
 import nl.han.ica.OOPDProcessingEngineHAN.Tile.TileMap;
@@ -45,17 +41,26 @@ public class Forest extends GameEngine {
 	public void createObjects() {
 		player = new Player(this);
 		addGameObject(player, 100, 100);
-		dragon = new Dragon(this, 20, 50, 10, "dragon.png");
+		dragon = new Dragon(this, 20, 50, 10);
 		addGameObject(dragon, 250, 400);
-		skeleton = new Skeleton(this, 20, 50, 10, "skeleton.png");
+		skeleton = new Skeleton(this, 20, 50, 10);
 		addGameObject(skeleton, 400, 250);
+//		EnemySpawner spawner = new EnemySpawner(player.getLevel()); //wil nu nog niet werken
+//		spawner.fillList(player.getLevel(), this);
+//		spawner.spawnEnemies(this);
 	}
 	
 	private void initializeTileMap() {
 		Sprite houseSprite = new Sprite("src/main/java/nl/han/ica/forestfight/media/house.png");
-		TileType<BoardsTile> boardTileType = new TileType<>(BoardsTile.class, houseSprite);
+		TileType<BoardsTile> houseTileType = new TileType<>(BoardsTile.class, houseSprite);
+		
+		Sprite foliage = new Sprite("src/main/java/nl/han/ica/forestfight/media/foliage.png");
+		TileType<BoardsTile> foliageTileType = new TileType<>(BoardsTile.class, foliage);
+		
+		Sprite gate = new Sprite("src/main/java/nl/han/ica/forestfight/media/gate.png");
+		TileType<BoardsTile> gateTileType = new TileType<>(BoardsTile.class, gate);
 
-        TileType[] tileTypes = { boardTileType };
+        TileType[] tileTypes = { houseTileType, gateTileType, foliageTileType };
         int tileSize=50;
         int tilesMap[][]={
 		            {-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1},
@@ -71,7 +76,7 @@ public class Forest extends GameEngine {
 		            {-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1},
 		            {-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1}
         };
-//        {2,2,2,2,2,2,2,3,3,2,2,2,2,2,2,2,2},//2 is de barriere om het level heen, 3 zijn de doorgang naar volgende
+//        {2,2,2,2,2,2,2,1,1,2,2,2,2,2,2,2,2},//2 is de barriere om het level heen, 1 zijn de doorgang naar volgende
 //        {2,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,2},// instance of naar de volgende safe-zone, moet hiervoor
 //        {2,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,2},// de sprites er nog in zetten en uitvogelen hoe je kan aangeven
 //        {2,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,2},// dat wanneer de player alles verslagen heeft en op 3 staat
@@ -82,7 +87,7 @@ public class Forest extends GameEngine {
 //        {2,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,2},
 //        {2,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,2},
 //        {2,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,2},
-//        {2,2,2,2,2,2,2,3,3,2,2,2,2,2,2,2,2}
+//        {2,2,2,2,2,2,2,1,1,2,2,2,2,2,2,2,2}
         tileMap = new TileMap(tileSize, tileTypes, tilesMap);
 	}
 	
