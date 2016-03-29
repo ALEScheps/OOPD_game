@@ -203,6 +203,14 @@ public class Player extends AnimatedSpriteObject implements ICollidableWithTiles
 		exp = exp + toAddExp;
 	}
 	
+	public void takeDamage(int dmg){
+		if(this.chp<dmg){
+			this.chp = 0;
+		}else{
+			this.chp -= dmg;
+		}
+	}
+	
 	public void die(){
 		//game-over
 	}

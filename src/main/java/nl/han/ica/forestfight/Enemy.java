@@ -1,6 +1,10 @@
 package nl.han.ica.forestfight;
 
 import java.util.List;
+import java.util.Timer;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
 
 import nl.han.ica.OOPDProcessingEngineHAN.Collision.CollidedTile;
 import nl.han.ica.OOPDProcessingEngineHAN.Collision.ICollidableWithGameObjects;
@@ -16,12 +20,13 @@ public class Enemy extends SpriteObject implements ICollidableWithTiles, ICollid
 
 	protected Forest world;
 	protected int enemyCount;
-	protected int mhp;	//maximum hp
-	protected int chp;	//hp the entity currently has
+	protected int mhp; // maximum hp
+	protected int chp; // hp the entity currently has
 	protected int att;
 	protected int def;
 	protected int toAddExp;
 	protected String fileName;
+	protected int range = 1;
 
 	public Enemy(Forest forest, int hp, int att, int def, String fileName) {
 		this(new Sprite("src/main/java/nl/han/ica/forestfight/media/" + fileName));
@@ -37,12 +42,15 @@ public class Enemy extends SpriteObject implements ICollidableWithTiles, ICollid
 	}
 
 	public void update() {
+		if (this.range < this.getDistanceFrom(world.player)){
+			this.attack();
+		}
 		if (this.getDistanceFrom(world.player) > 1) {
 			this.setDirectionSpeed(this.getAngleFrom(world.player), 2);
 		} else {
 			this.setDirectionSpeed(this.getAngleFrom(world.player), 0);
 		}
-		if(this.chp < 1){
+		if (this.chp < 1) {
 			this.die();
 		}
 	}
@@ -91,63 +99,73 @@ public class Enemy extends SpriteObject implements ICollidableWithTiles, ICollid
 
 	@Override
 	public void gameObjectCollisionOccurred(List<GameObject> collidedGameObjects) {
-		
-		for (GameObject go : collidedGameObjects){
-			
+
+		for (GameObject go : collidedGameObjects) {
+
 			for (GameObject cgo : collidedGameObjects) {
-				if(go != cgo){
-					if(go.getDistanceFrom(cgo) < go.getWidth()){
+				if (go != cgo) {
+					if (go.getDistanceFrom(cgo) < go.getWidth()) {
 						cgo.setSpeed(0);
 					}
 				}
-				
-//				ik weet nog niet hoe ik de collision hiermee goed krijg, maar enemies gaan na een tijdje
-//				rond te lopen onder elkaar lopen en player kan onder enemies door lopen
+
+				// ik weet nog niet hoe ik de collision hiermee goed krijg, maar
+				// enemies gaan na een tijdje
+				// rond te lopen onder elkaar lopen en player kan onder enemies
+				// door lopen
 			}
 		}
 	}
-	
-	public void setMaxHp(int hp){
+
+	public void setMaxHp(int hp) {
 		this.mhp = hp;
 	}
-	
-	public int getMaxHp(){
+
+	public int getMaxHp() {
 		return this.mhp;
 	}
-	
-	public void setCurrentHp(int hp){
+
+	public void setCurrentHp(int hp) {
 		this.chp = hp;
 	}
-	
-	public int getCurrentHp(){
+
+	public int getCurrentHp() {
 		return this.chp;
 	}
-	
-	public void setAtt(int att){
+
+	public void setAtt(int att) {
 		this.att = att;
 	}
-	
-	public int getAtt(){
+
+	public int getAtt() {
 		return this.att;
 	}
-	
-	public void setDef(int def){
+
+	public void setDef(int def) {
 		this.def = def;
 	}
-	
-	public int getDef(){
+
+	public int getDef() {
 		return this.def;
 	}
-	
-	public void setExp(int exp){
+
+	public void setExp(int exp) {
 		this.toAddExp = exp;
 	}
-	
-	public int getExp(){
+
+	public int getExp() {
 		return this.toAddExp;
 	}
-	
-	public void die(){
-		//remove the enemy from the game
+
+	public void die() {
+		// remove the enemy from the game
+	}
+
+	public void attack() {
+		// attack player every 2 seconds (needs further fixing)
+//		ScheduledExecutorService execService = Executors.newScheduledThreadPool(1);
+//		execService.scheduleAtFixedRate extends Enemy(
+//				world.player.takeDamage(this.att), 0L, 2L, TimeUnit.SECONDS);
+
 	}
 }
